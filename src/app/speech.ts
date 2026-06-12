@@ -35,12 +35,25 @@ export function commandSpeech(command: Command): string {
   return words.join(hasDefense ? ", " : " ");
 }
 
+// iOS blocks speech that isn't triggered by a user gesture. Speaking a
+// silent utterance inside the tap that starts a round unlocks the rest.
+export function unlockSpeech() {
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+  const utterance = new SpeechSynthesisUtterance(" ");
+  utterance.volume = 0;
+  window.speechSynthesis.speak(utterance);
+}
+
 export function speak(text: string) {
   if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-  window.speechSynthesis.cancel();
+  const synth = window.speechSynthesis;
+  // Unconditional cancel() right before speak() drops utterances on iOS.
+  if (synth.speaking || synth.pending) synth.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.rate = 1.2;
-  window.speechSynthesis.speak(utterance);
+  synth.speak(utterance);
+  // iOS sometimes leaves the queue paused after cancel().
+  synth.resume();
 }
 
 export function cancelSpeech() {

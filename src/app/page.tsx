@@ -6,7 +6,7 @@ import Opponent from "./Opponent";
 import PunchOverlay from "./PunchOverlay";
 import Ring from "./Ring";
 import { makeRound, ROUND_DEFS, type Round, type RoundFocus } from "./rounds";
-import { cancelSpeech, commandSpeech, speak } from "./speech";
+import { cancelSpeech, commandSpeech, speak, unlockSpeech } from "./speech";
 import { useRoundPlayer } from "./useRoundPlayer";
 
 const FOCUS_LABEL: Record<RoundFocus, string> = {
@@ -119,7 +119,10 @@ export default function Home() {
                 {ROUND_DEFS.filter((r) => r.focus === focus).map((r) => (
                   <button
                     key={r.name}
-                    onClick={() => setRound(makeRound(r, speed))}
+                    onClick={() => {
+                      unlockSpeech();
+                      setRound(makeRound(r, speed));
+                    }}
                     className="w-64 rounded-lg bg-zinc-100 px-4 py-3 text-left transition-colors hover:bg-white"
                   >
                     <div className="font-medium text-zinc-900">{r.name}</div>

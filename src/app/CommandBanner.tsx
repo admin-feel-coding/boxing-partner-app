@@ -42,25 +42,25 @@ const FOOTWORK: Record<FootworkMove, { arrow: string; label: string }> = {
 
 export default function CommandBanner({ command }: { command: Command }) {
   return (
-    <div className="pointer-events-none absolute inset-x-0 top-[14vh] z-10 flex justify-center">
-      <div className="command-pop rounded-2xl bg-zinc-950/70 px-10 py-4 text-center">
+    <div className="pointer-events-none absolute inset-x-0 top-[14vh] z-10 flex justify-center px-3">
+      <div className="command-pop max-w-[94vw] rounded-2xl bg-zinc-950/70 px-6 py-3 text-center sm:px-10 sm:py-4">
         {command.kind === "combo" ? (
           <>
-            <div className="text-8xl font-bold text-zinc-50 drop-shadow-lg">
+            <div className="text-5xl font-bold text-zinc-50 drop-shadow-lg sm:text-8xl">
               {command.calls.map((call, i) => (
                 <span key={i}>
                   {i > 0 && <span className="text-zinc-500">-</span>}
                   {isPunch(call) ? (
                     PUNCH_NUM[call]
                   ) : (
-                    <span className="text-5xl font-semibold text-zinc-400">
+                    <span className="text-3xl font-semibold text-zinc-400 sm:text-5xl">
                       {DEFENSE_SHORT[call]}
                     </span>
                   )}
                 </span>
               ))}
             </div>
-            <div className="mt-1 text-2xl text-zinc-300">
+            <div className="mt-1 text-base text-zinc-300 sm:text-2xl">
               {command.calls
                 .map((call) => (isPunch(call) ? PUNCH_NAME[call] : DEFENSE_NAME[call]))
                 .join(" · ")}
@@ -68,10 +68,10 @@ export default function CommandBanner({ command }: { command: Command }) {
           </>
         ) : (
           <>
-            <div className="text-8xl font-bold text-zinc-50 drop-shadow-lg">
+            <div className="text-6xl font-bold text-zinc-50 drop-shadow-lg sm:text-8xl">
               {FOOTWORK[command.move].arrow}
             </div>
-            <div className="mt-1 text-3xl font-semibold uppercase tracking-wide text-zinc-200">
+            <div className="mt-1 text-xl font-semibold uppercase tracking-wide text-zinc-200 sm:text-3xl">
               {FOOTWORK[command.move].label}
             </div>
           </>

@@ -63,24 +63,24 @@ export default function Home() {
       )}
 
       {round && (
-        <div className="absolute inset-x-0 top-4 z-20 flex justify-center">
-          <div className="flex items-center gap-5 rounded-xl bg-zinc-950/70 px-6 py-3">
-            <span className="text-sm font-medium text-zinc-400">
+        <div className="absolute inset-x-0 top-3 z-20 flex justify-center px-3 sm:top-4">
+          <div className="flex items-center gap-3 rounded-xl bg-zinc-950/70 px-4 py-2 sm:gap-5 sm:px-6 sm:py-3">
+            <span className="text-xs font-medium text-zinc-400 sm:text-sm">
               {round.name}
               {round.speed !== 1 && ` · ${round.speed}x`}
             </span>
-            <span className="font-mono text-3xl font-semibold tabular-nums text-zinc-50">
+            <span className="font-mono text-2xl font-semibold tabular-nums text-zinc-50 sm:text-3xl">
               {formatClock(remainingSec)}
             </span>
             <button
               onClick={togglePause}
-              className="w-24 rounded-lg bg-zinc-100 px-4 py-2 font-medium text-zinc-900 transition-colors hover:bg-white"
+              className="w-20 rounded-lg bg-zinc-100 px-3 py-1.5 font-medium text-zinc-900 transition-colors hover:bg-white sm:w-24 sm:px-4 sm:py-2"
             >
               {paused ? "Resume" : "Pause"}
             </button>
             <button
               onClick={() => setRound(null)}
-              className="rounded-lg bg-red-600 px-4 py-2 font-medium text-zinc-50 transition-colors hover:bg-red-500"
+              className="rounded-lg bg-red-600 px-3 py-1.5 font-medium text-zinc-50 transition-colors hover:bg-red-500 sm:px-4 sm:py-2"
             >
               End
             </button>
@@ -89,9 +89,10 @@ export default function Home() {
       )}
 
       {!round && (
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-8 bg-zinc-950/70 p-6">
+        <div className="absolute inset-0 z-20 flex overflow-y-auto bg-zinc-950/70 p-6">
+          <div className="m-auto flex flex-col items-center gap-6 sm:gap-8">
           <h1 className="text-2xl font-semibold text-zinc-50">Pick a round</h1>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <span className="text-sm font-semibold uppercase tracking-widest text-zinc-400">
               Speed
             </span>
@@ -109,7 +110,7 @@ export default function Home() {
               </button>
             ))}
           </div>
-          <div className="flex flex-wrap justify-center gap-10">
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-10">
             {FOCUSES.map((focus) => (
               <div key={focus} className="flex flex-col gap-3">
                 <h2 className="text-center text-sm font-semibold uppercase tracking-widest text-zinc-400">
@@ -127,6 +128,7 @@ export default function Home() {
                 ))}
               </div>
             ))}
+          </div>
           </div>
         </div>
       )}
